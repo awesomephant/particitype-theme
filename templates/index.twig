@@ -1,0 +1,10 @@
+{% extends "base.twig" %}
+
+{% block content %}
+helloo
+	{% for letter in letters %}
+		<h2>{{letter.title}}</h2>
+		<img class='letter-image' src='{{TimberImage(letter.letter_image)}}' />
+	{% endfor %}
+	
+{% endblock %}
