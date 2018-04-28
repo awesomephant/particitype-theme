@@ -1,0 +1,28 @@
+$postheight: 20vw;
+$postWidth: 15vw;
+$headerHeight: 3rem;
+@mixin bp($point) {
+	@if $point == xl {
+		@media (min-width: 100rem) {
+			@content;
+		}
+	} @else if $point == l {
+		@media (min-width: 65rem) {
+			@content;
+		}
+	} @else if $point == m {
+		@media (min-width: 45rem) {
+			@content;
+		}
+	} @else if $point == s {
+		@media (min-width: 35rem) {
+			@content;
+		}
+	}
+}
+
+$margin: 0px;
+$hideScrollbars: true;
+$lightgray: rgb(230, 230, 230);
+$red: #e3125c;
+$green: #39b21e;

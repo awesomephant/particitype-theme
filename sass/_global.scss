@@ -1,0 +1,36 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	font-family: Times, "Times New Roman";
+}
+.site-header {
+	padding: 1rem;
+	position: fixed;
+	font-weight: bold;
+	background: white;
+	width: 100%;
+	top: 0;
+	z-index: 100;
+	font-size: 1.2rem;
+	height: $headerHeight;
+}
+
+.site-nav {
+	justify-content: space-between;
+	width: 100%;
+	display: flex;
+	a {
+		color: $red;
+		cursor: pointer;
+		text-decoration: none;
+		&:hover, &:focus {
+			color: $green;
+		}
+	}
+	
+}

@@ -1,10 +1,15 @@
 {% extends "base.twig" %}
 
 {% block content %}
-helloo
-	{% for letter in letters %}
-		<h2>{{letter.title}}</h2>
-		<img class='letter-image' src='{{TimberImage(letter.letter_image)}}' />
-	{% endfor %}
-	
+    <div class="x-wrap">
+        {% for col in 1..10 %}
+		<ul class="letters">
+            {% for letter in letters %}
+                <li class="letter">
+                    <img class='letter-image' src='{{TimberImage(letter.letter_image | resize(500))}}'/>
+                </li>
+            {% endfor %}
+        </ul>
+		{% endfor %}
+    </div>
 {% endblock %}
