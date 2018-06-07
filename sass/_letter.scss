@@ -3,6 +3,7 @@
 	overflow-x: hidden;
 	position: relative;
 	display: inline-block;
+	touch-action:none;
 }
 .x-inner {
 	display: grid;
@@ -24,6 +25,7 @@
 	margin-right: $margin;
 	overflow-y: hidden;
 	position: relative;
+	touch-action:none;
 }
 .letter {
 	border-bottom: $margin solid white;

@@ -66,7 +66,7 @@
     }
 
     let columns = document.querySelectorAll('.letters-col ul')
-    httpGetAsync('http://particitype.test/index.php?rest_route=/wp/v2/letter', function (letters) {
+    httpGetAsync('./index.php?rest_route=/wp/v2/letter', function (letters) {
         // console.log(letters)
 
         // now we populate the columns
@@ -104,6 +104,8 @@
             snap: 'div',
             //eventPassthrough: true
         });
+
+        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 
     })
 </script> {% endblock %}
