@@ -1,16 +1,13 @@
 .x-wrap {
-	scroll-snap-points-x: repeat($postWidth);
-	scroll-snap-type: mandatory;
 	width: 100vw;
+	overflow-x: hidden;
+	position: relative;
+	display: inline-block;
+}
+.x-inner {
 	display: grid;
-	grid-template-columns: repeat(10, $postWidth);
-	overflow-x: scroll;
-		@if $hideScrollbars {
-		-ms-overflow-style: none; // IE 10+
-		&::-webkit-scrollbar {
-			display: none;
-		}
-	}
+	width: $postWidth * 15;
+	grid-template-columns: repeat(30, $postWidth);
 }
 
 .site-content {
@@ -19,30 +16,22 @@
 	display: flex;
 	width: 400vw;
 }
-.letters {
-	height: 150vh;
+
+.letters-col {
+	height: calc(#{$postHeight} * 5 + #{$margin} * 4);
 	display: inline-block;
 	width: $postWidth;
 	margin-right: $margin;
-	overflow-y: scroll;
+	overflow-y: hidden;
 	position: relative;
-	scroll-snap-points-y: repeat($postheight);
-	scroll-snap-type: mandatory;
-	@if $hideScrollbars {
-	-ms-overflow-style: none; // IE 10+
-	&::-webkit-scrollbar {
-		display: none;
-	}
-	}
 }
-
 .letter {
 	border-bottom: $margin solid white;
 	font-family: sans-serif;
 	background: yellow;
 	border: 1px solid white;
 	overflow: hidden;
-	height: $postheight;
+	height: $postHeight;
 	display: block;
 	vertical-align: top;
 	img {
@@ -54,8 +43,8 @@
 	$pw2 : $postWidth * 2;
 	$pw3 : $postWidth * 3;
 	$pw4 : $postWidth * 4;
-	$ph2 : $postheight * 2;
-	$ph3 : $postheight * 3;
+	$ph2 : $postHeight * 2;
+	$ph3 : $postHeight * 3;
 	$m2: $margin * 2;
 	$m3: $margin * 3;
 	$m4: $margin * 4;

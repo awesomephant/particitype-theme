@@ -4,7 +4,7 @@
   "theme": "C:/xampp/apps/wordpress/htdocs/wp-content/themes/timber/",
   "devDependencies": {
     "grunt": "*",
-    "grunt-ftp-deploy": "*",
+    "grunt-sftp-deploy": "*",
     "grunt-contrib-watch": "*",
     "grunt-browser-sync": "*",
     "grunt-sass": "*",

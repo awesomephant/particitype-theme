@@ -3,3 +3,4 @@ wp-content
 node_modules/
 composer.lock
 package-lock.json
+.ftppass

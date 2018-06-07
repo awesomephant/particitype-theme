@@ -49,6 +49,7 @@ class StarterSite extends TimberSite {
 		);
 
 		$context['letters'] = Timber::get_posts( $args );
+		$context['post'] = new TimberPost();
 		$context['site'] = $this;
 		return $context;
 	}

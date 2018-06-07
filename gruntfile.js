@@ -43,15 +43,30 @@ module.exports = function (grunt) {
         }
       }
     },
+    "sftp-deploy": {
+      build: {
+        auth: {
+          host: 'upacrossandalong.com',
+          port: 22,
+          authKey: 'key1'
+        },
+        src: '.',
+        dest: '/home/upac41759638873/html/wp-content/themes/particitype-theme/',
+        exclusions: ['sass/', 'node_modules', '.git'],
+        progress: true,
+      }
+    }
 
   });
 
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-browser-sync");
+  grunt.loadNpmTasks("grunt-sftp-deploy");
 
   grunt.loadNpmTasks("grunt-sass");
   grunt.loadNpmTasks("grunt-postcss");
 
   grunt.registerTask("css", ["sass", "postcss"]);
   grunt.registerTask("up", ["browserSync", "watch"]);
+  grunt.registerTask("deploy", ["sftp-deploy"]);
 };

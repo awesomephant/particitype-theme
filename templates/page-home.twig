@@ -1,0 +1,109 @@
+{% extends "base.twig" %} {% block content %}
+
+<div class="x-wrap">
+    <div class="x-inner"></div>
+</div>
+
+<script>
+    var gri = function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    const imageGrid = {{ post.image_grid }};
+    const container = document.querySelector('.x-inner');
+    function httpGetAsync(theUrl, callback) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                callback(JSON.parse(xmlHttp.responseText));
+        }
+        xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+        xmlHttp.send(null);
+    };
+
+    const getGlyphVersions = function (glyph, letters) {
+        let versions = [];
+        for (let i = 0; i < letters.length; i++) {
+            if (letters[i].title.rendered === glyph) {
+                versions.push(letters[i]);
+            }
+        }
+        console.log('Found ' + versions.length + ' versions of ' + glyph)
+        return versions;
+    }
+    const getLetterByID = function (id, letters) {
+        for (let i = 0; i < letters.length; i++) {
+            if (letters[i].id === id) {
+                return letters[i];
+            }
+        }
+        console.log('Could not find letter with ID ' + id)
+        return false;
+    }
+
+
+    const pickLetter = function (letters, cell) {
+        let letter;
+        let mode = cell.currentMode;
+        let val = cell.currentValue;
+        //   console.log(cell)
+        if (mode === 'random') {
+            letter = letters[gri(0, letters.length - 1)]
+        } else if (mode === 'randomLetter') {
+            let versions = getGlyphVersions(val, letters);
+            letter = versions[gri(0, versions.length - 1)]
+        } else if (mode === 'specificLetter') {
+            letter = getLetterByID(val, letters)
+
+        }
+        return letter;
+    }
+    const xRepeats = 15 // temp
+    // Let's set up the columns first
+    for (let a = 0; a < xRepeats; a++) { // we're repeating the whole thing three times in x
+            for (let j = 0; j < imageGrid[0].length; j++) { // cols
+                container.insertAdjacentHTML('beforeend', '<div class="letters-col"><ul></ul></div>')
+            }
+    }
+
+    let columns = document.querySelectorAll('.letters-col ul')
+    httpGetAsync('http://particitype.test/index.php?rest_route=/wp/v2/letter', function (letters) {
+        // console.log(letters)
+
+        // now we populate the columns
+        for (let b = 0; b < xRepeats; b += 1) { // repeat in x
+            for (let a = 0; a < 8; a++) { // repeat 3 times in y
+                for (let i = 0; i < imageGrid.length; i++) { //i = row
+                    for (let j = 0; j < imageGrid[i].length; j++) {
+                        let c = columns[j + b];
+                        let letter = pickLetter(letters, imageGrid[i][j])
+                        let url = letter.acf.letter_image.sizes.medium_large;
+                        c.insertAdjacentHTML('beforeend', '<li class="letter"><img src="' + url + '"/></li>')
+                    }// cols
+                }
+            }
+        }
+
+        var cols = document.querySelectorAll('.letters-col')
+        for (c = 0; c < cols.length; c++) {
+            let myScroll = new IScroll(cols[c], {
+                mouseWheel: true,
+                mouseWheelSpeed: 1,
+                snapSpeed: 1500,
+                scrollbars: false,
+                snap: 'li',
+                //eventPassthrough: true
+            });
+        }
+        
+        let xWrap = document.querySelector('.x-wrap')
+        let xScroll = new IScroll(xWrap, {
+            scrollX: true,
+            scrollY: false,
+            snapSpeed: 1500,
+            scrollbars: false,
+            snap: 'div',
+            //eventPassthrough: true
+        });
+
+    })
+</script> {% endblock %}
